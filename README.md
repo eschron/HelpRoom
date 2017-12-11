@@ -4,7 +4,7 @@ We created HelpRoom as a resource for students to ask questions they may be too 
 
 **Technologies:**
 
-*Python
-*Flask
-*Jinja templating
-*Ajax
+* Python
+* Flask
+* Jinja templating
+* Ajax
