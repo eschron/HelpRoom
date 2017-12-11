@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name=author content="Emily Schron and Eva Stern-Rodriguez">
+    <title>Logout Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='helproom.css') }}">
+    <script src="ajax.js"></script>
+  </head>
+
+
+
+  <body>
+    <nav>
+    <div id="navigation">
+      <ul>
+        <li><a href="/"> Login</a></li>
+        <li><a href="/"><img src="/static/logo.png" alt='logo'></a></li>
+      </ul>
+
+    </div>
+</nav>
+
+
+    {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <div id="messages">
+               {% for msg in messages %}
+                   <p>{{msg}}</p>
+              {% endfor %}
+               </div>
+          {% endif %}
+    {% endwith %}
+
+    <h1>Thank you for using HelpRoom!</h1>
+
+  </body>
+</html>

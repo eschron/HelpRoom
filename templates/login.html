@@ -1,0 +1,56 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name=author content="Emily Schron and Eva Stern-Rodriguez">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='helproom.css') }}">
+  </head>
+  <body>
+    <nav>
+    <div id="navigation">
+      <ul>
+        <li><a href="/">Login</a></li>
+        <li><a href="/"><img src="/static/logo.png" alt='logo'></a></li>
+      </ul>
+
+    </div>
+</nav>
+
+
+    <div id="content">
+
+
+        <h1>Welcome to HelpRoom</h1>
+        <p>Please enter your Wellesley email and password</p>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div id="messages">
+                 {% for msg in messages %}
+                     <p>{{msg}}</p>
+                {% endfor %}
+                 </div>
+            {% endif %}
+      {% endwith %}
+
+      <p>Sign In Below</p>
+      <form method=POST action="">
+        Wellesley Username:<br>
+        <input type="text" name="email" value="">
+        <br>
+        <div id=sign_in>
+        <input type="submit" name="submit" value="Login">
+      </div>
+        <br><br>
+        <div id =sign_up>
+        <p>Don't have an account? Sign up below.</p>
+        <input type="submit" name="submit" value="Sign Up!">
+      </div>
+      </form>
+
+    </div>
+  </body>
+</html>

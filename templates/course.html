@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name=author content="Emily Schron and Eva Stern-Rodriguez">
+    <title>Course Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='helproom.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type=text/javascript src="{{url_for('static', filename='ajax.js') }}"></script>
+  </head>
+
+  <body>
+    <nav>
+    <div id="navigation">
+      <ul>
+        <li><a href="/class/">Home</a></li>
+        <li><a href="/search/">Search by Tag</a></li>
+        <li><a href="/profile/"> Profile</a></li>
+        <li><a href="/logout/"> Logout</a></li>
+        <li><a href="/class/"><img src="/static/logo.png" alt='logo'></a></li>
+      </ul>
+
+    </div>
+</nav>
+
+
+      {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div id="messages">
+                 {% for msg in messages %}
+                     <p>{{msg}}</p>
+                {% endfor %}
+                 </div>
+            {% endif %}
+      {% endwith %}
+
+    <div id="whole_page">
+      <div id="course_questions">
+        <div class="question_with_responses">
+          <h1><span class="session">{{course_id}}</span></h1>
+          <!--Below is posting quesiton form.-->
+          <div class="style_form">
+          <form method=POST action="">
+          <p>Enter your question here!</p>
+          <input type="text" name="post_question" value="">
+          <select name="menu_tag">
+          <option value="none">Select a Tag</option>
+          {% for tag in tags %}
+          <option value = {{tag.tag_name}}> {{tag.tag_name}} </option>
+          {% endfor %}
+          </select>
+          <input type="submit" name="submit" value="Post Question">
+          </form>
+        </div>
+
+
+          <h3>Below are questions for {{course_id}}</h3>
+
+          {% for question in questions | reverse %}
+          <div class=all_question_info>
+            <!--Here is where a question will appear-->
+            <p>{{question.user_id}}:  </p>
+            <p>{{question.text_input}}</p>
+            <div class=like_class>
+            <p><div class='num_votes'>Votes: <span class=v_count> {{question.vote_count}}</span></div></p>
+            <p><img class ="like"  src ="/static/green.png" alt = "" data-qid={{question.qid}} data-cid ={{course_id}}></p>
+          </div>
+          <div class=toggle>
+            <p><span class=num_resp>0</span></p>
+            <p><img class ="down"  src ="/static/down_arrow.png" alt = ""></p>
+          </div>
+
+
+            <!--Here is the textbox and tags for posting a response to a question-->
+            <!--div for form and responsesfor 1 single question.  Default is hidden unless clicked-->
+            <div class=response_form>
+              <form method=POST action="">
+                <input type="text" name="response_text" value="">
+                <select name="resp_tag">
+                <option value="none">Select a Tag</option>
+                {% for tag in tags %}
+                <option value = {{tag.tag_name}}> {{tag.tag_name}} </option>
+                <!--end tag forloop-->
+                {% endfor %}
+                </select>
+                <input type="submit" name="submit" value="Post Response">
+                <input type="hidden" name="qid" value ="{{question.qid}}">
+              </form>
+
+              <h3>Responses:</h3>
+              <!--Here are the existing responses to a question-->
+              {% for response in responses | reverse %}
+              {%if response.qid==question.qid%}
+              <div class = "rdiv">
+                <p>{{response.user_id}}:  </p>
+                <p>{{response.text_input}}</p>
+              <!--close response div-->
+              </div>
+              {%endif%}
+              <!--end responses forloop-->
+              {% endfor %}
+
+        <!--close form and response div-->
+            </div>
+        </div>
+          <!--end question forloop-->
+        {% endfor %}
+
+        <!--end question_with_responses div-->
+      </div>
+     </div>
+    </div>
+
+    <script type=text/javascript>
+    $(".response_form").hide();
+
+    function format_responses() {
+      //click to toggle
+      var a = $(".toggle");
+      $('.toggle').on('click', '.down', function(event){
+          $(event.target).closest(".all_question_info").find(".response_form").slideToggle();
+      });
+    }
+
+    format_responses();
+
+    $('.like_class').on('click', '.like', function(event){
+      event.stopPropagation();
+      console.log("I clicked on the like button");
+      var btn= event.target;
+      var qid= $(btn).attr('data-qid');
+      var cid=$(btn).attr('data-cid');
+
+      $.ajax({
+        url: '/like/'+cid+'/'+qid,
+        type: 'POST',
+        data: {'qid': qid},
+        success: function(response){
+                            $(event.target).closest(".like_class").find(".v_count").text(response['vote_count']);
+                           },
+        error: function(error) {
+          console.log("error");
+        }
+
+      })
+      });
+
+      $(".all_question_info").each(function (idx,elt) {
+        var resp = $(elt).find(".rdiv").length;
+        $(elt).find(".num_resp").text("Responses: " + resp);
+      });
+
+    </script>
+  </body>
+</html>

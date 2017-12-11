@@ -1,0 +1,113 @@
+.all_question_info{
+background-color: white;
+border-style: solid;
+border-width: 1px;
+border-color: #c7bd45;
+width: 60%;
+margin: auto;
+margin-top: 10px;
+margin-bottom: 10px;
+padding: 20px;
+}
+
+.response_form{
+border-style: solid;
+border-width: 1px;
+border-color: #c7bd45;
+width: 80%;
+margin: auto;
+margin-top: 10px;
+margin-bottom: 10px;
+padding: 20px;
+}
+
+.like{
+  height: 15px;
+  width: auto;
+}
+
+.down{
+  height: 10px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #69A2A7;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 20px 55px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: teal;
+}
+
+nav img {
+  height: 20px;
+  float: left;
+}
+
+body {
+  background-color: #e2e2e2;
+  margin: auto;
+  font-weight: lighter;
+  font-family: "Calibri", sans-serif;
+}
+
+.style_form {
+  margin: auto;
+  text-align: center;
+  width: 60%;
+}
+
+h1 {
+  text-align: center;
+  color: black;
+}
+
+h3 {
+  text-align: center;
+  color: black;
+}
+
+.all_courses input {
+  background-color: #ffffff;
+  height: 35px;
+  width: 90px;
+  padding: 10px;
+  border: 2px solid #69A2A7;
+  margin: 15px;
+}
+
+.all_courses input:hover {
+  background-color: #555555;
+  color: white;
+  border: 2px solid #000000;
+}
+
+.all_courses{
+  width: 70%;
+  margin: auto;
+}
+
+#content{
+  width: 80%;
+  margin: auto;
+  text-align: center;
+
+}
